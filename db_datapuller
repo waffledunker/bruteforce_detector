@@ -1,0 +1,25 @@
+#!/usr/bin/python
+
+import MySQLdb
+
+#creating db object to connect database.
+db = MySQLdb.connect(host='localhost', port=3306, user='your_user', passwd='your_passwd', db='testdb$
+
+#variable to open file and write in to it
+f = open('temp.txt', 'a')
+
+#empty string variable to hold data and print to file
+str_list = []
+
+#cursor object to execute our queries
+cur = db.cursor()
+cur.execute("SELECT * FROM example")
+
+
+for row in cur.fetchall():
+        str_list.append(row)
+        print row[0], row[1], row[2], row[3]
+
+print >> f, str_list
+f.close()
+db.close()
