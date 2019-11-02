@@ -1,2 +1,2 @@
 # bruteforce_detector
-bruteforce attack checker 
+bruteforce attack checker v0.1
