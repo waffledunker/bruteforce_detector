@@ -1,25 +1,30 @@
 #!/usr/bin/python
 
+# --------------- PART 1 --------------
 import MySQLdb
+import csv
 
 #creating db object to connect database.
-db = MySQLdb.connect(host='localhost', port=3306, user='your_user', passwd='your_passwd', db='testdb$
+db = MySQLdb.connect(host='localhost', port=3306, user='root', passwd='alpcan', db='testdb$
 
-#variable to open file and write in to it
-f = open('temp.txt', 'a')
-
-#empty string variable to hold data and print to file
-str_list = []
+#variable to open file and write into it in cwd
+f = open('/tmp/scripts/deneme.csv', 'w')
 
 #cursor object to execute our queries
 cur = db.cursor()
 cur.execute("SELECT * FROM example")
 
+#fetch data from db and write to file as csv
+rows = cur.fetchall()
 
-for row in cur.fetchall():
-        str_list.append(row)
-        print row[0], row[1], row[2], row[3]
+#insanity check
 
-print >> f, str_list
+for row in rows:
+        print row[0],row[1],row[2],row[3]
+
+myFile = csv.writer(f)
+myFile.writerows(rows)
+
+#garbage collection
 f.close()
 db.close()
